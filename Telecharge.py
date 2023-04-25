@@ -7,25 +7,30 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
 from TelechargeShow import TelechargeShow
 from typing import List,Set
+import json
+import os
 
 
 class Telecharge:
 #For now : not keepign track of if alive, quit after everything
     START_PAGE =  "https://my.socialtoaster.com/st/lottery_select/?key=BROADWAY&source=iframe"
-
-    def __init__(self,
-                 config = {
+    CONFIG_PATH = "config.json"
+    
+    DEFAULT_CONFIG = {
         'DEBUG' : True,
         'SELENIUM_URL' : "http://localhost:4444/wd/hub",
         'DEBUG_OFFLINE' : True,
         'FACEBOOK_EMAIL' : "alex.kaish+selenium@gmail.com",
-        'FACEBOOK_PASSWORD' : '"WKN2hrz.yap1bku_fcf"',
+        'FACEBOOK_PASSWORD' : "WKN2hrz.yap1bku_fcf",
         'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html'
     }
+        
+    def __init__(self,
+                 config_path = CONFIG_PATH
     ) -> None:
         self.driver:webdriver.Remote = None
         self.shows:List[TelechargeShow] =  []
-        self.config = config
+        self.config = Telecharge.createConfig(config_path)
 
     def driverIsAlive(self):
         """
@@ -136,6 +141,32 @@ class Telecharge:
                 show.enterLottery(showsToEnter[show.title])
      
         # self.driver.quit()
+    
+    #Load config from config.json file
+    @classmethod
+    def loadConfig(cls, configPath:str = "config.json"):
+        with open(configPath) as file:
+            config = json.load(file)
+        return config
+    
+    #Save config to config.json file
+    @classmethod
+    def saveConfig(cls, config, configPath:str = "config.json"):
+        with open(configPath, 'w') as file:
+            json.dump(config, file, indent=1)
+    #load config from config.json file and ensure it has SELENIUM_URL,FACEBOOK_EMAIL,FACEBOOK_PASSWORD fields and then save it 
+    @classmethod
+    def createConfig(cls, configPath:str = "config.json"):
+        if(os.path.exists(configPath)):
+            config = cls.loadConfig(configPath)
+        else:
+            config = {}
+        for key in cls.DEFAULT_CONFIG:
+            if(key not in config.keys()):
+                config[key] = cls.DEFAULT_CONFIG[key]
+        cls.saveConfig(config, configPath)
+        return config
+    
 
 
 
