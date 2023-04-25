@@ -6,14 +6,15 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
 from TelechargeShow import TelechargeShow
-from typing import List
+from typing import List,Set
 
 
 class Telecharge:
 #For now : not keepign track of if alive, quit after everything
     START_PAGE =  "https://my.socialtoaster.com/st/lottery_select/?key=BROADWAY&source=iframe"
 
-    config = {
+    def __init__(self,
+                 config = {
         'DEBUG' : True,
         'SELENIUM_URL' : "http://localhost:4444/wd/hub",
         'DEBUG_OFFLINE' : True,
@@ -21,10 +22,10 @@ class Telecharge:
         'FACEBOOK_PASSWORD' : '"WKN2hrz.yap1bku_fcf"',
         'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html'
     }
-
-    def __init__(self) -> None:
+    ) -> None:
         self.driver:webdriver.Remote = None
         self.shows:List[TelechargeShow] =  []
+        self.config = config
 
     def driverIsAlive(self):
         """
@@ -49,7 +50,9 @@ class Telecharge:
             #print creating new driver if debug
             if(self.config['DEBUG']):
                 print("Creating new driver")
+            #Enable logging of requests
             chrome_options = webdriver.ChromeOptions()
+            chrome_options.set_capability("goog:loggingPrefs", {"performance": "ALL", "browser": "ALL"})
             self.driver = webdriver.Remote(command_executor=self.config['SELENIUM_URL'], options=chrome_options)
         if(self.config['DEBUG_OFFLINE']):
             #print getting OFFLINE_URL if debug
@@ -103,15 +106,25 @@ class Telecharge:
         if(self.config['DEBUG']):
             print("Found " + str(len(self.shows)) + " shows")    
     
-    def getShowTitles(self) -> list[str]:
+    def getShowTitles(self) -> Set[str]:
         """Returns set of show titles"""
         if(not self.driverIsAlive()):
             self.setup()
             self.getShowDivs()
-        titles = {}
+        titles = set()
         for show in self.shows:
             titles.add(show.title)
         return titles
+    
+    def getShow(self,title):
+        """Returns show with given title, or None if no show with that title"""
+        if(not self.driverIsAlive()):
+            self.setup()
+            self.getShowDivs()
+        for show in self.shows:
+            if(show.title == title):
+                return show
+        return None
     
     def enterLotteries(self, showsToEnter: dict[str:int]):
         if(not self.driverIsAlive()):

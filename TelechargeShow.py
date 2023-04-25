@@ -24,9 +24,10 @@ class TelechargeShow:
         self.maxTickets = 2 #Always 2 for Telecharge
         entered_text = self.div.find_element(By.CLASS_NAME,"entered-text")
         self.already_entered = entered_text.is_displayed()
-        
+        #Get Event ID
+        onclick = self.div.get_attribute("onclick")
+        self.event_id = re.search(r'\d+', onclick).group()
 
-    
     def isAlive(self):
         """Returns true if connection to showDiv is Alive"""
         try:
@@ -35,6 +36,8 @@ class TelechargeShow:
         except:
             return False
     
+    def __str__(self) -> str:
+        return ("Title: " + self.title + " Date: " + self.dateTime + " Price: " + self.price + " Max Tickets: " + str(self.maxTickets) + " Already Entered: " + str(self.already_entered) + " Event ID: " + self.event_id + " Alive: " + str(self.isAlive()))
     @staticmethod
     def createShowsFromDivs(driver: webdriver.Remote, showDivs : list[WebElement], config:dict[str:str] = {'DEBUG' : False}) -> list['TelechargeShow']:
         """Returns a list of TelechargeShows from a list of showDivs"""
@@ -45,6 +48,9 @@ class TelechargeShow:
                 shows.append(TelechargeShow(driver, div, config))
         return shows
     
+
+
+    #TODO: if online, check for positive response, otherwise check for request at all
     #Assuming alive 
     def enterLottery(self, numTickets: int) -> bool:
         ##TODO : Check if already entered, and if alive
@@ -58,24 +64,18 @@ class TelechargeShow:
             return False
         
         #Get Event ID
-        onclick = self.div.get_attribute("onclick")
-        if(self.config['DEBUG']):
-            print("onclick: " + onclick)
-        event_id = re.search(r'\d+', onclick).group()
-        if(self.config['DEBUG']):
-            print("event_id: " + event_id)
-        price = self.div.find_element(By.CLASS_NAME,"lottery_show_price_discount").text
-        if(self.config['DEBUG']): 
-            print("price: " + price)
         #Select No of Tickets
         if(self.config['DEBUG']):
             print("numTickets: " + str(numTickets))
-        ticketSelect= Select(self.div.find_element(By.ID,"tickets_" + event_id))
+        ticketSelect= Select(self.div.find_element(By.ID,"tickets_" + self.event_id))
         ticketSelect.select_by_value(str(numTickets))
         #Click Enter Button
         enterButton = self.div.find_element(By.LINK_TEXT,"ENTER")
         self.driver.execute_script("arguments[0].scrollIntoView();",enterButton)
         self.driver.execute_script("window.scrollBy(0,-100)", "")
+
+        #Before hitting submit button, request log so next log request will only have this request
+        log_entries = self.driver.get_log("performance")
         ActionChains(self.driver).move_to_element(enterButton).click().perform()
         #TODO: check if there is something I can do to confirm it went through when not online
         #If Debug, print entered
