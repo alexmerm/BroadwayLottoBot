@@ -1,0 +1,807 @@
+
+.st_show_desktop,
+.st_show_tablet,
+.st_show_desktop.st_show_tablet {
+    display: none;
+}
+
+.st_show_mobile,
+.st_show_mobile.st_show_desktop,
+.st_show_mobile.st_show_mobile {
+    display: block;
+}
+
+#st_campaign_nav ul {
+    left: 0%;
+    float: none;
+    text-align: left;
+}
+
+#st_campaign_nav ul li {
+    right: auto;
+    float: none;
+}
+
+.st_fixed_width {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.st_fixed_width_inner {
+    padding: 0 15px;
+}
+
+#st_campaign_nav ul li {
+    border-left: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 0;
+}
+
+.st_campaign_body_logged_in #st_campaign_nav ul li#st_campaign_nav_item_id_mobile_logout,
+.st_campaign_body_logged_out #st_campaign_nav ul li#st_campaign_nav_item_id_mobile_signin {
+
+    border-bottom: 0;
+}
+
+#st_campaign_nav ul li a {
+    padding: 10px 15px;
+    display: block;
+    font-size: 1.4em;
+}
+
+#st_campaign_nav ul li.st_menu_selected a {
+  border-top: 0;
+}
+
+#st_campaign_nav ul li.st_show_mobile {
+    display: block;
+}
+
+
+#st_campaign_nav_bottom {
+    float: left;
+}
+
+#st_campaign_nav_bottom ul li {
+    border: 0;
+    clear: both;
+}
+
+#st_campaign_nav_bottom ul li a {
+    padding: 0;
+}
+
+#st_campaign_powered_footer {
+    float: left;
+}
+
+h1#st_campaign_page_header {
+    font-size: 3em;
+}
+
+.st_campaign_form_wide .st_campaign_tag {
+    width: 100%;
+}
+
+#st_cta_signup_text,
+#st_cta_signup_buttons{
+    width: 100%;
+}
+
+#st_cta_signup_text {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+#st_cta_signup_buttons {
+    margin-top: 1em;
+}
+
+#st_cta_signup_buttons_description {
+    font-size: 1em;
+}
+
+.st_campaign_cta_signup_button {
+    width: 80px;
+}
+
+.container-full .st_campaign_cta_signup_button {
+    width: 70px;
+}
+
+#st_cta_signup_panels .st_cta_signup_panel {
+    display: block;
+    padding: 1em 0;
+}
+
+#st_cta_signup_panels .st_cta_signup_panel_4 {
+    width: 100%;
+}
+
+#st_cta_signup_panels .st_cta_signup_panel_3 {
+    width: 100%;
+}
+
+#st_cta_signup_panels .st_cta_signup_panel_2 {
+    width: 100%;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_right,
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_left {
+  width: 100%;
+  float: none;
+  margin-top: 20px;
+  height: auto;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_right .st_campaign_block_cta_right_inner {
+  padding-left: 0;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_left .st_campaign_block_cta_left_inner {
+  padding-right: 0;
+}
+
+.st_campaign_body_popup #st_cta,
+.st_campaign_body_popup #st_campaign_blocks,
+.st_campaign_popup_close {
+    display: none;
+}
+
+.st_campaign_popup {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border: 0;
+    box-shadow: 0 0 0 0 transparent;
+    padding: 0;
+}
+
+#st_campaign_popup_underlay {
+    display: none;
+}
+
+#st_campaign_blocks {
+    max-width: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#st_campaign_blocks .st_campaign_block.st_campaign_block_width_normal,
+#st_campaign_blocks .st_campaign_block.st_campaign_block_width_wide,
+#st_campaign_blocks .st_campaign_block.st_campaign_block_width_full {
+    width: 285px;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    float: none;
+}
+
+.st_campaign_block_slider {
+    width: 100%;
+}
+
+.st_campaign_block_slider .st_campaign_block_slider_item img {
+    max-width: 100%;
+}
+
+.st_campaign_block_slider.slick-slider {
+    margin-bottom: 0px;
+}
+
+#st_cta_leaderboard_section_user.st_cta_leaderboard_section,
+#st_cta_leaderboard_section_rank.st_cta_leaderboard_section,
+#st_cta_leaderboard_section_points.st_cta_leaderboard_section {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0.5em;
+    width: 100%;
+    text-align: center;
+}
+
+#st_cta_leaderboard_section_user_name,
+img#st_cta_leaderboard_section_user_picture {
+    float: none;
+    margin: 0;
+}
+
+img#st_cta_leaderboard_section_user_picture,
+#st_cta_leaderboard_section_user_name_name {
+    display: none;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_section {
+  font-size: 16px;
+}
+
+.st_campaign_leaderboard_column_wrapper,
+.st_campaign_leaderboard_column {
+    width: 100%;
+}
+
+.st_campaign_block_stats .st_campaign_stats_item {
+    padding: 1.5em 1em;
+    width: 30%;
+    margin-bottom: 0;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_wide .st_campaign_stats_item .st_campaign_stats_item_value {
+    font-size: 3.5em;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_wide .st_campaign_stats_item.hide-mobile {
+    display: none;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_full .st_campaign_stats_item .st_campaign_stats_item_value {
+    font-size: 3.5em;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_full .st_campaign_stats_item.hide-mobile {
+    display: none;
+}
+
+#st_campaign_signup_networks_connect .st_campaign_social_media_button_long {
+    width: 100%;
+    margin-right: 0;
+}
+
+#st_campaign_signup_network_login .st_campaign_social_media_button_long_text {
+    max-width: none;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_full .st_campaign_stats_item {
+    padding: 1.5em 1em;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_full .st_campaign_stats_item.single-width {
+    width: 30%;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_full .st_campaign_stats_item.full-width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_wide .st_campaign_stats_item {
+    padding: 1.5em 1em;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_wide .st_campaign_stats_item.single-width {
+    width: 30%;
+}
+
+.st_campaign_block_stats.st_campaign_block_width_wide .st_campaign_stats_item.full-width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.st_campaign_social_media_button_long_half {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+}
+
+.st_campaign_network_option_connected {
+    width: 100%;
+}
+.st_history_engagement_cell {
+    display: none;
+}
+
+.st_campaign_points_info {
+    width: 100%;
+}
+
+.st_campaign_points_amount {
+    float: left;
+    clear: both;
+    font-size: 1.5em;
+}
+
+.st_campaign_mentions_remaining .remaining-label,
+.st_campaign_mentions_remaining .remaining-label {
+    display: none;
+}
+
+.st_campaign_points_networks .st_campaign_social_media_button_long {
+    width: 100%;
+}
+
+#st_more .masonry_grid_item,
+#st_more .masonry_grid_sizer {
+    width: 100%;
+}
+
+#st_more #st_campaign_block_recruit_link {
+    width: auto;
+}
+
+#st_more .st_campaign_checkins_foursquare_logo {
+    display: none;
+}
+
+#st_more .st_campaign_viewable_details_buttons .st_campaign_viewable_details_button {
+    display: block;
+    margin-right: 0;
+}
+
+.st_campaign_survey_list_item {
+    width: 100%;
+}
+
+.st_campaign_tiled_list_item_title,
+.st_campaign_tiled_list_item_image,
+.st_campaign_tiled_list_item_image img,
+.st_campaign_tiled_list_item_description,
+.st_campaign_survey_list_item .st_campaign_survey_list_points {
+    height: auto;
+}
+
+#st_campaign_block_recruit_link_cta {
+    width: 100%;
+}
+#st_language_picker {
+    float: none;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+.hide-mobile {
+    display: none;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content {
+    padding: 5px 5px;
+}
+
+.st_campaign_block_recruit_cta_col {
+    display: inline-block;
+    float: none;
+    width: 100%;
+    border: none;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta {
+    height: auto;
+    overflow: hidden;
+}
+
+#st_campaign_block_content_recruit .st_campaign_block_recruit_cta_col:last-child {
+    margin-top: 20px;
+}
+
+#st_campaign_page_header.st_campaign_page_header_recommendations {
+    font-size: 1.8em;
+}
+
+#st_campaign_page_header.st_campaign_page_header_points {
+    font-size: 1.4em;
+}
+
+.st_campaign_block_reshares_list .slick-dots {
+    padding-bottom: 5px;
+}
+
+.st_cta_challenge_description {
+    float: none;
+    width: 90%;
+    padding: none;
+    text-align: center;
+}
+
+.st_cta_challenge_images {
+    float: none;
+    width: 90%;
+    margin-top: 20px;
+    padding: none;
+}
+
+.st_cta_challenge_images img {
+    margin-bottom: 15px;
+}
+
+.st_cta_challenge_images img.hide-tablet {
+    display: inline-block;
+}
+
+.picture_share_publish_networks img,
+.message_form .st_network_pic {
+  height: 14px;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_section {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#st_cta .st_campaign_block_picture_share_picker_item img {
+    max-width: 120px;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta .st_campaign_block_content .st_campaign_block_cta_section_centered,
+#st_campaign_blocks .st_campaign_block .st_campaign_block_content .st_campaign_block_section_centered {
+    position: static;
+    top: 0;
+    transform: none;
+}
+
+.st_campaign_block_cta_type_past_content .st_campaign_network_connect_button,
+.st_campaign_block_cta_type_add_networks .st_campaign_network_connect_button,
+.st_campaign_block_cta_type_video_share .st_campaign_network_connect_button {
+    float: none;
+    margin-right: 50px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.st_campaign_block_cta_type_pic_challenge .st_campaign_block_cta_view_more {
+    position: relative;
+}
+
+.st_campaign_block_cta_type_pic_challenge .st_campaign_block_cta_view_more a.st_slider_small {
+   width: 30%;
+}
+
+.st_campaign_block_cta_type_pic_challenge .st_campaign_network_connect_button_text {
+    display: block;
+}
+
+.st_campaign_block_cta_type_pic_challenge .st_campaign_network_connect_button_text_short {
+    display: none;
+}
+
+#st_campaign_blocks .st_campaign_block_type_pic_challenge.st_campaign_block_width_wide .st_campaign_block_left,
+#st_campaign_blocks .st_campaign_block_type_pic_challenge.st_campaign_block_width_full .st_campaign_block_left {
+    width: inherit;
+    float: none;
+}
+
+#st_campaign_blocks .st_campaign_block_type_pic_challenge.st_campaign_block_width_wide .st_campaign_block_right,
+#st_campaign_blocks .st_campaign_block_type_pic_challenge.st_campaign_block_width_full .st_campaign_block_right {
+    display: none;
+}
+
+.network_reconnect_msg {
+    float: none;
+    width: 100%;
+}
+
+.st_campaign_pics_connect_button {
+    float: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#prospect-message-block {
+    left: auto;
+    right: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    padding: 0;
+}
+
+.st_campaign_block_cta_section_icon {
+    position: static;
+    margin-top: 20px;
+    font-size: 3em;
+    text-align: center;
+    top: 0;
+    left: 0;
+    transform: none;
+}
+
+.rewards-detail-left {
+  margin-bottom: 1em;
+}
+
+.rewards-detail-right,
+.rewards-detail-left {
+    float: none;
+    width: 100%;
+}
+
+.st_campaign_share_popup h1 {
+    font-size: 1.2em;
+}
+
+.st_campaign_share_popup_actions {
+    float: none;
+}
+
+.st_campaign_share_popup_image img {
+    max-height: 200px;
+}
+
+.comment-share-title {
+    font-size: 1.2em;
+}
+
+.st_campaign_block_mentions_group_left {
+    margin-bottom: 0.5em;
+}
+
+.st_campaign_block_mentions_group_left,
+.st_campaign_block_mentions_group_right {
+    float: none;
+    width: 100%;
+}
+
+.st_campaign_body_survey #signup-div .st_campaign_button,
+.st_campaign_body_survey #next-available-div .st_campaign_button,
+.st_campaign_body_survey #thank-you-div .st_campaign_button {
+  float: left;
+  margin-top: 3px;
+  clear: both;
+}
+
+.st_campaign_body_survey .survey_complete_group_text_buttons {
+    float: left;
+    text-align: left;
+}
+
+.st_campaign_body_survey .sharing-options .sharing-option-item {
+    padding: 20px 10px;
+}
+
+.st_campaign_body_survey .sharing-options .sharing-option-item-image {
+    height: 40px;
+}
+
+.st_campaign_body_survey .survey .question.question-width-full,
+.st_campaign_body_survey .survey .question.question-width-half,
+.st_campaign_body_survey .survey .question.question-width-third {
+    width: 100%;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_cta h2.st_campaign_block_header {
+    min-height: 35px;
+    height: auto;
+}
+
+#st_campaign_blocks .st_campaign_block .st_campaign_block_header_wrapper {
+    height: auto;
+    min-height: 50px;
+}
+
+.slider_slides_wide .post_image_wrapper {
+    height: 150px;
+    width: 285px;
+}
+
+.slider_slides_wide .st_campaign_block_story_slider_item_inner {
+    width: 285px;
+}
+
+.slider_slides_wide .st_campaign_block_story_slider_item .post_text .post_text_wrapper {
+    column-width: 285px;
+    -webkit-column-width: 285px;
+}
+
+.slider_slides_wide .st_campaign_block_story_slider_item .post_text {
+    height: 140px;
+}
+
+.st_campaign_block_width_wide .st_campaign_block_slider,
+.st_campaign_block_width_full .st_campaign_block_slider {
+    width: 285px;
+}
+
+.st_campaign_block_width_wide .st_campaign_block_slider .st_campaign_block_slider_item img,
+.st_campaign_block_width_full .st_campaign_block_slider .st_campaign_block_slider_item img {
+    max-width: 285px;
+}
+
+.st_campaign_picture_share_message,
+#st_campaign_picture_share_message {
+    height: 110px;
+}
+
+/* Block placeholder images */
+.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_width_wide .block_placeholder {
+    width: 285px;
+}
+
+/* Video Block Placeholder */
+.st_campaign_block_video.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_video.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_video_normal.jpg?ffbce9bafbaf");
+}
+
+.st_campaign_block_video.st_campaign_block_width_full.st_campaign_block_no_header .block_placeholder,
+.st_campaign_block_video.st_campaign_block_width_wide.st_campaign_block_no_header .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_video_normal_tall.jpg?ffbce9bafbaf");
+}
+
+/* Custom Block Placeholder */
+.st_campaign_block_custom.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_custom.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_custom_normal.jpg?e98b60720558");
+}
+
+.st_campaign_block_custom.st_campaign_block_width_full.st_campaign_block_no_header .block_placeholder,
+.st_campaign_block_custom.st_campaign_block_width_wide.st_campaign_block_no_header .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_custom_normal_tall.jpg?10645faec401");
+}
+
+/* Slider Block Placeholder */
+.st_campaign_block_slider.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_slider.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_slider_normal.jpg?10645faec401");
+}
+
+.st_campaign_block_slider.st_campaign_block_width_full.st_campaign_block_no_header .block_placeholder,
+.st_campaign_block_slider.st_campaign_block_width_wide.st_campaign_block_no_header .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_slider_normal_tall.jpg?10645faec401");
+}
+
+/* Survey Block Placeholder */
+.st_campaign_block_survey.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_survey.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_survey_normal.jpg?ffbce9bafbaf");
+}
+
+.st_campaign_block_survey.st_campaign_block_width_full .block_placeholder.block_placeholder_edit,
+.st_campaign_block_survey.st_campaign_block_width_wide .block_placeholder.block_placeholder_edit {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_survey_normal_edit.jpg?ffbce9bafbaf");
+}
+
+/* Featured Pics Block Placeholder */
+.st_campaign_block_featured_pics.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_featured_pics.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_featured_pics_normal.jpg?10645faec401");
+}
+
+/* Badges Block Placeholder */
+.st_campaign_block_badges.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_badges.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_badges_normal.jpg?10645faec401");
+}
+
+/* Picture Share Block Placeholder */
+.st_campaign_block_picture_share.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_picture_share.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_picture_share_normal.jpg?10645faec401");
+}
+
+/* Video Share Block Placeholder */
+.st_campaign_block_video_share.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_video_share.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_video_share_normal.jpg?ffbce9bafbaf");
+}
+
+.st_campaign_block_video_share.st_campaign_block_width_full .block_placeholder.block_placeholder_edit,
+.st_campaign_block_video_share.st_campaign_block_width_wide .block_placeholder.block_placeholder_edit {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_video_share_normal_edit.jpg?ffbce9bafbaf");
+}
+
+/* Be Social Block Placeholder */
+.st_campaign_block_be_social.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_be_social.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_be_social_normal.jpg?10645faec401");
+}
+
+/* Reshares Block Placeholder */
+.st_campaign_block_reshares.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_reshares.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_reshares_normal.jpg?10645faec401");
+}
+
+/* Mentions Block Placeholder */
+.st_campaign_block_mentions.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_mentions.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_mentions_normal.jpg?ffbce9bafbaf");
+}
+
+/* Recommended Sites Block Placeholder */
+.st_campaign_block_recommended_sites.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_recommended_sites.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_recommended_sites_normal.jpg?ffbce9bafbaf");
+}
+
+/* Past Content Block Placeholder */
+.st_campaign_block_past_content.st_campaign_block_width_full .block_placeholder,
+.st_campaign_block_past_content.st_campaign_block_width_wide .block_placeholder {
+    background-image: url("/static/media/media_files/designer/placeholder_images/v2/block_past_content_normal.jpg?ffbce9bafbaf");
+}
+
+.st_campaign_share_popup_actions_share_button {
+    margin-left: 0;
+}
+
+.st_campaign_share_popup_actions_share_comment_button {
+    display: block;
+    margin-left: 0;
+    margin-top: 20px;
+}
+
+
+.st_campaign_pics_connect_network_buttons {
+    width: 100%;
+}
+
+.st_campaign_pics_connect .st_campaign_network_connect_button {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.st_campaign_block_type_how-to-play.st_campaign_block_width_full .st_campaign_how_step .st_campaign_how_step_text,
+.st_campaign_block_type_how-to-play.st_campaign_block_width_wide .st_campaign_how_step .st_campaign_how_step_text {
+    max-width: 200px;
+    font-size: 14px;
+}
+
+/* Hide and show appropriate block content for size configurable blocks */
+.st_campaign_block_width_wide .st_campaign_dynamic_block .single-width,
+.st_campaign_block_width_full .st_campaign_dynamic_block .single-width {
+    display: block;
+}
+
+.st_campaign_block_width_wide .st_campaign_dynamic_block .double-width,
+.st_campaign_block_width_full .st_campaign_dynamic_block .double-width {
+    display: none;
+}
+
+.st_campaign_block_cta .st_campaign_dynamic_block .single-width {
+    display: block;
+}
+
+.st_campaign_block_cta .st_campaign_dynamic_block .double-width,
+.st_campaign_block_cta .st_campaign_dynamic_block .full-width {
+    display: none;
+}
+
+#st_campaign_blocks_cta .st_campaign_block_pic_challenge_slider .pic_challenge_entry {
+    width: 190px;
+    height: 190px;
+}
+
+#feed-wall .feed-item {
+    width: 100%;
+}
+
+.st_campaign_block_left,
+.st_campaign_block_right {
+  height: auto !important;
+}
+
+.st_campaign_block_network_container_small {
+    position: inherit !important;
+}
+
+.st_campaign_block_thresholds_subtitle.threshold_subtitle_left {
+    display: none;
+}
+
+.st_campaign_block_thresholds_subtitle.threshold_subtitle_right {
+    float: inherit;
+    text-align: center;
+}
+
+#thumbnail_image_label .filename {
+    margin-left: 15px;
+    position: static;
+    top: 0;
+}
+
+.embedded-pic.pic-card-wrapper {
+    min-width: 95%;
+}
+
+  .st_profile_info {
+      width: 100%;
+  }
+  .st_profile_image_holder{
+    float:none;
+    width:100%;
+      padding-bottom: 10px;
+  }

@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  broadwayLottery:
+    container_name: broadwayLottery 
+    restart: always
+    image: seleniarm/standalone-chromium
+    volumes:
+      - /dev/shm:/dev/shm
+      - "./offlinePages:/mnt/offlinePages"
+    ports:
+      - 5901:5900
+      - 4444:4444
+
+ 
