@@ -5,9 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
-import re
-import time
-
+from TelechargeShow import TelechargeShow
+from typing import List
 
 
 class Telecharge:
@@ -24,9 +23,12 @@ class Telecharge:
     }
 
     def __init__(self) -> None:
-        self.driver = None
+        self.driver:webdriver.Remote = None
+        self.shows:List[TelechargeShow] =  []
 
     def driverIsAlive(self):
+        """
+        Returns True if driver is alive, False otherwise"""
         if(self.driver == None):
             return False
         try:
@@ -43,6 +45,7 @@ class Telecharge:
             print("Starting Setup")
         #
         if(not self.driverIsAlive()):
+            self.shows = []
             #print creating new driver if debug
             if(self.config['DEBUG']):
                 print("Creating new driver")
@@ -85,85 +88,43 @@ class Telecharge:
             lottery_events_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH,"//a[@data-section='lottery_block_events']")))
             ActionChains(self.driver).move_to_element(lottery_events_button).click().perform()
             #if debug, print setup complete
-        print("Setup Complete, self.driver = " + str(self.driver))
         if(self.config['DEBUG']):
             print("Setup Complete, self.driver = " + str(self.driver))
-        return self.driver
+        
 
 
-
-    def getShowDivs(self) -> dict[str:list[WebElement]]:
-        self.setup()
+    #Keeping Seperate from self.Setup in case there's some issues with page reloading upoon entering lottery
+    def getShowDivs(self) -> None:
+        """Loads shows into self.shows"""
         if(self.config['DEBUG']):
             print("Getting Show Divs")
-        shows = {}
         showDivs = self.driver.find_elements(By.XPATH,"//div[@class='lottery_show st_style_page_text_border']")
+        self.shows = TelechargeShow.createShowsFromDivs(self.driver, showDivs, config=self.config)
         if(self.config['DEBUG']):
-            print("Found " + str(len(showDivs)) + " shows")
-        for div in showDivs:
-            title_block = div.find_element(By.CLASS_NAME,"lottery_show_title")
-            title = title_block.text
-            if(title != ''):
-                if(title in shows):
-                    shows[title].append(div)
-                else: 
-                    shows[title] = [div]
-        if(self.config['DEBUG']):
-            print("Found " + str(len(shows)) + " shows")    
-        return shows
+            print("Found " + str(len(self.shows)) + " shows")    
     
-    def getShows(self):
-        showDivs = self.getShowDivs()
-        showList = showDivs.keys()
-        self.driver.quit()
-        return showList
+    def getShowTitles(self) -> list[str]:
+        """Returns set of show titles"""
+        if(not self.driverIsAlive()):
+            self.setup()
+            self.getShowDivs()
+        titles = {}
+        for show in self.shows:
+            titles.add(show.title)
+        return titles
     
     def enterLotteries(self, showsToEnter: dict[str:int]):
-        showDivs = self.getShowDivs()
+        if(not self.driverIsAlive()):
+            self.setup()
+            self.getShowDivs()
         #call enterLottery for each show
-        for show in showsToEnter.keys():
-            for performance in showDivs[show]:
-                self.enterLottery(show,performance, showsToEnter[show])
-                time.sleep(1)
-        #self.driver.quit()
+        for show in self.shows:
+            if(show.title in showsToEnter.keys()):
+                show.enterLottery(showsToEnter[show.title])
+     
+        # self.driver.quit()
 
-    
-    #Assume Setup
-    def enterLottery(self,showTitle: str, showDiv : list[WebElement], numTickets: int):
-        if(self.config['DEBUG']):
-            print("Entering " + showTitle)
-        entered_text = showDiv.find_element(By.CLASS_NAME,"entered-text")
-        if (entered_text.is_displayed()):
-            if(self.config['DEBUG']):
-                print("already entered for " + showTitle)
-            return
-        
-        #Get Event ID
-        onclick = showDiv.get_attribute("onclick")
-        if(self.config['DEBUG']):
-            print("onclick: " + onclick)
-        event_id = re.search(r'\d+', onclick).group()
-        if(self.config['DEBUG']):
-            print("event_id: " + event_id)
-        price = showDiv.find_element(By.CLASS_NAME,"lottery_show_price_discount").text
-        if(self.config['DEBUG']): 
-            print("price: " + price)
-        #Select No of Tickets
-        if(self.config['DEBUG']):
-            print("numTickets: " + str(numTickets))
-        ticketSelect= Select(showDiv.find_element(By.ID,"tickets_" + event_id))
-        ticketSelect.select_by_value(str(numTickets))
-        #Click Enter Button
-        enterButton = showDiv.find_element(By.LINK_TEXT,"ENTER")
-        self.driver.execute_script("arguments[0].scrollIntoView();",enterButton)
-        self.driver.execute_script("window.scrollBy(0,-100)", "")
-        ActionChains(self.driver).move_to_element(enterButton).click().perform()
-        #If Debug, print entered
-        if(self.config['DEBUG']):
-            print("Entered " + showTitle)
 
-        
-        
 
 
 
