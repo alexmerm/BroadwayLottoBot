@@ -21,8 +21,8 @@ class Telecharge:
         'DEBUG' : True,
         'SELENIUM_URL' : "http://localhost:4444/wd/hub",
         'DEBUG_OFFLINE' : True,
-        'FACEBOOK_EMAIL' : "alex.kaish+selenium@gmail.com",
-        'FACEBOOK_PASSWORD' : "WKN2hrz.yap1bku_fcf",
+        'FACEBOOK_EMAIL' : "",
+        'FACEBOOK_PASSWORD' : "",
         'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html',
         'NUM_TICKETS_FOR_NEW_SHOWS' : 0
     }
