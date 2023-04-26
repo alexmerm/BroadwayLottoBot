@@ -15,6 +15,7 @@ class Telecharge:
 #For now : not keepign track of if alive, quit after everything
     START_PAGE =  "https://my.socialtoaster.com/st/lottery_select/?key=BROADWAY&source=iframe"
     CONFIG_PATH = "config.json"
+    SHOWS_TO_ENTER_PATH = "showsToEnter.json"
     
     DEFAULT_CONFIG = {
         'DEBUG' : True,
@@ -22,7 +23,8 @@ class Telecharge:
         'DEBUG_OFFLINE' : True,
         'FACEBOOK_EMAIL' : "alex.kaish+selenium@gmail.com",
         'FACEBOOK_PASSWORD' : "WKN2hrz.yap1bku_fcf",
-        'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html'
+        'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html',
+        'NUM_TICKETS_FOR_NEW_SHOWS' : 0
     }
         
     def __init__(self,
@@ -30,7 +32,7 @@ class Telecharge:
     ) -> None:
         self.driver:webdriver.Remote = None
         self.shows:List[TelechargeShow] =  []
-        self.config = Telecharge.createConfig(config_path)
+        self.config = Telecharge.createFile(config_path, Telecharge.DEFAULT_CONFIG)
 
     def driverIsAlive(self):
         """
@@ -103,13 +105,18 @@ class Telecharge:
 
     #Keeping Seperate from self.Setup in case there's some issues with page reloading upoon entering lottery
     def getShowDivs(self) -> None:
-        """Loads shows into self.shows"""
+        """Loads shows into self.shows and updates ShowTOGEt config file"""
+        if(not self.driverIsAlive()):
+            self.setup()
+            self.getShowDivs()
         if(self.config['DEBUG']):
             print("Getting Show Divs")
         showDivs = self.driver.find_elements(By.XPATH,"//div[@class='lottery_show st_style_page_text_border']")
         self.shows = TelechargeShow.createShowsFromDivs(self.driver, showDivs, config=self.config)
         if(self.config['DEBUG']):
-            print("Found " + str(len(self.shows)) + " shows")    
+            print("Found " + str(len(self.shows)) + " shows")
+            print("Updating ShowToGet File")
+        self.createShowsToEnter( Telecharge.SHOWS_TO_ENTER_PATH)
     
     def getShowTitles(self) -> Set[str]:
         """Returns set of show titles"""
@@ -131,7 +138,13 @@ class Telecharge:
                 return show
         return None
     
+    def enterLotteries(self):
+        """Enters lotteries stored in SHOWS_TO_ENTER_PATH file"""
+        showsToEnter = self.createShowsToEnter(Telecharge.SHOWS_TO_ENTER_PATH)
+        self.enterLotteries(showsToEnter)
+
     def enterLotteries(self, showsToEnter: dict[str:int]):
+        """Enters lotteries for shows in showsToEnter"""
         if(not self.driverIsAlive()):
             self.setup()
             self.getShowDivs()
@@ -142,30 +155,38 @@ class Telecharge:
      
         # self.driver.quit()
     
-    #Load config from config.json file
+    #Load dict from json file
     @classmethod
-    def loadConfig(cls, configPath:str = "config.json"):
-        with open(configPath) as file:
-            config = json.load(file)
-        return config
+    def loadFile(cls, filePath:str):
+        with open(filePath) as file:
+            contents = json.load(file)
+        return contents
     
-    #Save config to config.json file
+    #Save dict to json file
     @classmethod
-    def saveConfig(cls, config, configPath:str = "config.json"):
-        with open(configPath, 'w') as file:
-            json.dump(config, file, indent=1)
-    #load config from config.json file and ensure it has SELENIUM_URL,FACEBOOK_EMAIL,FACEBOOK_PASSWORD fields and then save it 
+    def saveConfig(cls, contents, filePath:str):
+        with open(filePath, 'w') as file:
+            json.dump(contents, file, indent=1)
+    #load contents from json file and ensure it has fields from defaultContents
     @classmethod
-    def createConfig(cls, configPath:str = "config.json"):
-        if(os.path.exists(configPath)):
-            config = cls.loadConfig(configPath)
+    def createFile(cls, filePath:str, defaultContents):
+        if(os.path.exists(filePath)):
+            contents = cls.loadFile(filePath)
         else:
-            config = {}
-        for key in cls.DEFAULT_CONFIG:
-            if(key not in config.keys()):
-                config[key] = cls.DEFAULT_CONFIG[key]
-        cls.saveConfig(config, configPath)
-        return config
+            contents = {}
+        for key in defaultContents:
+            if(key not in contents.keys()):
+                contents[key] = defaultContents[key]
+        cls.saveConfig(contents, filePath)
+        return contents
+    
+    #Create ShowsToEnter file from shows
+    def createShowsToEnter(self, showsToEnterPath:str = SHOWS_TO_ENTER_PATH):
+        defaultShows = {}
+        for show in self.shows:
+            defaultShows[show.title] = self.config['NUM_TICKETS_FOR_NEW_SHOWS']
+        return Telecharge.createFile(showsToEnterPath, defaultShows)
+
     
 
 
