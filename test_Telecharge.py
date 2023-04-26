@@ -3,21 +3,13 @@ from Telecharge import Telecharge
 import json
 from urllib.parse import parse_qs
 from unittest.mock import patch,Mock
-import time
 
 
-config = {
-        'DEBUG' : True,
-        'SELENIUM_URL' : "http://localhost:4444/wd/hub",
-        'DEBUG_OFFLINE' : True,
-        'FACEBOOK_EMAIL' : "alex.kaish+selenium@gmail.com",
-        'FACEBOOK_PASSWORD' : '"WKN2hrz.yap1bku_fcf"',
-        'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html'
-    }
+CONFIG_PATH = "config_offline.json"
 
 class TelechargeTestCase(unittest.TestCase):
     def setUp(self):
-        self.tc = Telecharge(config=config)
+        self.tc = Telecharge(config_path = CONFIG_PATH)
     def tearDown(self) -> None:
         if(self.tc.driver != None):
             self.tc.driver.quit()
@@ -81,6 +73,20 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.shows = [BADCIN]
         self.tc.enterLotteries(toGet)
         BADCIN.enterLottery.assert_called_with(2)
+
+    #Test Loading config from file
+    def test_load_config(self):
+        config = {
+            "DEBUG": True,
+            "SELENIUM_URL": "http://localhost:4444/wd/hub",
+            "DEBUG_OFFLINE": True,
+            "FACEBOOK_EMAIL": "email@gmail.com",
+            "OFFLINE_URL": "file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html",
+            "FACEBOOK_PASSWORD": "password",
+            "NUM_TICKETS_FOR_NEW_SHOWS": 0
+        }
+        self.assertEqual(self.tc.config, config)
+     
 
 
 
