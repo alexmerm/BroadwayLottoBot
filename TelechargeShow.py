@@ -2,8 +2,13 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 import re
 from selenium import webdriver
+import time
 
 
 class TelechargeShow:
@@ -55,6 +60,9 @@ class TelechargeShow:
     def enterLottery(self, numTickets: int) -> bool:
         ##TODO : Check if already entered, and if alive
         """Enters the lottery for this show with the given number of tickets, returns true if successul, false otherwise"""
+        if numTickets == 0:
+            return False
+
         if(self.config['DEBUG']):
             print("Entering " + self.title)
         
@@ -72,15 +80,40 @@ class TelechargeShow:
         #Click Enter Button
         enterButton = self.div.find_element(By.LINK_TEXT,"ENTER")
         self.driver.execute_script("arguments[0].scrollIntoView();",enterButton)
-        self.driver.execute_script("window.scrollBy(0,-100)", "")
+        self.driver.execute_script("window.scrollBy(0,-300)", "")
+        #time.sleep(1)
+        #print("should be showing {}".format(self.title))
+        # self.driver.get_screenshot_as_file("screenshots/{}_{}_{}.png".format(self.title, self.dateTime, self.event_id))
 
-        #Before hitting submit button, request log so next log request will only have this request
-        log_entries = self.driver.get_log("performance")
+        #Click all dispalyed Notifications to remove them
+        self.clickNotifications()
+        #Wait until Notifications are gone to click enter button
+        WebDriverWait(self.driver, 10).until_not(TelechargeShow.notificationsDisplayed)
         ActionChains(self.driver).move_to_element(enterButton).click().perform()
         #TODO: check if there is something I can do to confirm it went through when not online
         #If Debug, print entered
         if(self.config['DEBUG']):
             print("Entered " + self.title)
+        #time.sleep(1)
         return True
+    
+    #Click Notification to Dissapear it
+    def clickNotifications(self):
+        notifications = self.driver.find_elements(By.XPATH,"//ul[@id='st-notification-list']/li")
+        for notification in notifications:
+            if notification.is_displayed():
+                ActionChains(self.driver).move_to_element(notification).click().perform()
+    
+    
+    @staticmethod
+    def notificationsDisplayed(d):
+        """Helper Method to determine that no notification is displayed by the time lottery is entered (potentially covering enter button)
+        Takes: Driver, returns true if any notifications displayed"""
+        notifications = d.find_elements(By.XPATH,"//ul[@id='st-notification-list']/li")
+        for notification in notifications:
+            if notification.is_displayed():
+                return True
+        return False
+
 
         

@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
+
 from TelechargeShow import TelechargeShow
 from typing import List,Set
 import json
@@ -34,6 +35,7 @@ class Telecharge:
         self.shows:List[TelechargeShow] =  []
         self.config = Telecharge.createFile(config_path, Telecharge.DEFAULT_CONFIG)
 
+
     def driverIsAlive(self):
         """
         Returns True if driver is alive, False otherwise"""
@@ -46,7 +48,7 @@ class Telecharge:
             return False
 
     def setup(self):
-        """ Sets up driver and logs into account
+        """ Sets up driver and logs into account and loads show divs
         """
         #print starting setup if debug
         if(self.config['DEBUG']):
@@ -100,15 +102,6 @@ class Telecharge:
             #if debug, print setup complete
         if(self.config['DEBUG']):
             print("Setup Complete, self.driver = " + str(self.driver))
-        
-
-
-    #Keeping Seperate from self.Setup in case there's some issues with page reloading upoon entering lottery
-    def getShowDivs(self) -> None:
-        """Loads shows into self.shows and updates ShowTOGEt config file"""
-        if(not self.driverIsAlive()):
-            self.setup()
-            self.getShowDivs()
         if(self.config['DEBUG']):
             print("Getting Show Divs")
         showDivs = self.driver.find_elements(By.XPATH,"//div[@class='lottery_show st_style_page_text_border']")
@@ -122,7 +115,6 @@ class Telecharge:
         """Returns set of show titles"""
         if(not self.driverIsAlive()):
             self.setup()
-            self.getShowDivs()
         titles = set()
         for show in self.shows:
             titles.add(show.title)
@@ -132,7 +124,6 @@ class Telecharge:
         """Returns show with given title, or None if no show with that title"""
         if(not self.driverIsAlive()):
             self.setup()
-            self.getShowDivs()
         for show in self.shows:
             if(show.title == title):
                 return show
@@ -147,7 +138,6 @@ class Telecharge:
         """Enters lotteries for shows in showsToEnter"""
         if(not self.driverIsAlive()):
             self.setup()
-            self.getShowDivs()
         #call enterLottery for each show
         for show in self.shows:
             if(show.title in showsToEnter.keys()):
