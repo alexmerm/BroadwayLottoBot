@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import re
 from selenium import webdriver
-import time
 
 
 class TelechargeShow:
