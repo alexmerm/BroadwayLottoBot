@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  broadwayLottery:
-    container_name: broadwayLottery 
+  broadwaySelenium:
+    container_name: broadwaySelenium 
     restart: always
     image: seleniarm/standalone-chromium
     volumes:
@@ -11,5 +11,18 @@ services:
     ports:
       - 5901:5900
       - 4444:4444
+      - 7900:7900
+  broadwayRunner:
+    container_name: broadwayRunner
+    restart: no
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: broadwayrunner
+    volumes:
+      - ".:/home"
+    depends_on:
+      - broadwaySelenium
+#    entrypoint: ["pytest"]
 
  

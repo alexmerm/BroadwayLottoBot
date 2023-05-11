@@ -5,21 +5,22 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
-
+import requests
 from TelechargeShow import TelechargeShow
 from typing import List,Set
 import json
 import os
+import time
 
 
 class Telecharge:
 #For now : not keepign track of if alive, quit after everything
     START_PAGE =  "https://my.socialtoaster.com/st/lottery_select/?key=BROADWAY&source=iframe"
-    CONFIG_PATH = "config.json"
+    CONFIG_PATH = "/home/config.json"
     
     DEFAULT_CONFIG = {
         'DEBUG' : True,
-        'SELENIUM_URL' : "http://localhost:4444/wd/hub",
+        'SELENIUM_URL' : "http://broadwaySelenium:4444/wd/hub",
         'DEBUG_OFFLINE' : True,
         'FACEBOOK_EMAIL' : "",
         'FACEBOOK_PASSWORD' : "",
@@ -56,10 +57,23 @@ class Telecharge:
             print("Starting Setup")
         #
         if(not self.driverIsAlive()):
-            self.shows = []
             #print creating new driver if debug
             if(self.config['DEBUG']):
                 print("Creating new driver")
+
+            #WAIT UNTIL SELENIUM IS AVAILABLE
+            ready = False
+            while not ready:
+                try:
+                    response = requests.get( self.config['SELENIUM_URL'] + '/status')
+                    data = json.loads(response.content)
+                    ready = data['value']['ready']
+                except:
+                    pass
+                
+                if not ready:
+                    print('Waiting for the Selenium server to be ready')
+                    time.sleep(1)
             #Enable logging of requests
             chrome_options = webdriver.ChromeOptions()
             chrome_options.set_capability("goog:loggingPrefs", {"performance": "ALL", "browser": "ALL"})
@@ -172,7 +186,9 @@ class Telecharge:
     def createFile(cls, filePath:str, defaultContents):
         if(os.path.exists(filePath)):
             contents = cls.loadFile(filePath)
+            print("Loaded file at " + filePath)
         else:
+            print("Creating new file at " + filePath)
             contents = {}
         for key in defaultContents:
             if(key not in contents.keys()):

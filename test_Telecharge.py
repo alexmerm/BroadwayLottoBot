@@ -6,7 +6,7 @@ from unittest.mock import Mock
 
 
 
-CONFIG_PATH = "config_offline.json"
+CONFIG_PATH = "/home/config_offline.json"
 class TelechargeTestCase(unittest.TestCase):
     def setUp(self):
         self.tc = Telecharge(config_path = CONFIG_PATH)
@@ -17,13 +17,13 @@ class TelechargeTestCase(unittest.TestCase):
     def test_load_config(self):
         config = {
             "DEBUG": True,
-            "SELENIUM_URL": "http://localhost:4444/wd/hub",
+            "SELENIUM_URL": "http://broadwaySelenium:4444/wd/hub",
             "DEBUG_OFFLINE": True,
             "FACEBOOK_EMAIL": "email@gmail.com",
             "OFFLINE_URL": "file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html",
             "FACEBOOK_PASSWORD": "password",
             "NUM_TICKETS_FOR_NEW_SHOWS": 0,
-            "SHOWS_TO_ENTER_PATH": "showsToEnter_offline.json"
+            "SHOWS_TO_ENTER_PATH": "/home/showsToEnter_offline.json"
 
         }
         self.assertEqual(self.tc.config, config)
