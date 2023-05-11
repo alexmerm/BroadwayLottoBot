@@ -2,7 +2,7 @@ import unittest
 from Telecharge import Telecharge
 import json
 from urllib.parse import parse_qs
-from unittest.mock import patch,Mock
+from unittest.mock import Mock
 
 
 
@@ -11,8 +11,7 @@ class TelechargeTestCase(unittest.TestCase):
     def setUp(self):
         self.tc = Telecharge(config_path = CONFIG_PATH)
     def tearDown(self) -> None:
-        if(self.tc.driver != None):
-            self.tc.driver.quit()
+        self.tc.quit()
     
     #Test Loading config from file
     def test_load_config(self):
@@ -160,7 +159,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteriesCustom(toGet)
+        self.tc.enterLotteriesCustom(toGet, False)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
         
@@ -189,7 +188,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteriesCustom(toGet)
+        self.tc.enterLotteriesCustom(toGet,False)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
 
@@ -219,7 +218,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteriesCustom(toGet)
+        self.tc.enterLotteriesCustom(toGet, False)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
     
@@ -248,7 +247,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteriesCustom(toGet)
+        self.tc.enterLotteriesCustom(toGet, False)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
 
@@ -276,7 +275,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteries()
+        self.tc.enterLotteries(False)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
 

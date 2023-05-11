@@ -131,12 +131,14 @@ class Telecharge:
         return None
     
 
-    def enterLotteries(self):
+    def enterLotteries(self, quitAtEnd = True):
         """Enters lotteries for all shows saved in SHOWS_TO_ENTER_PATH"""
+        if(not self.driverIsAlive()):
+            self.setup()
         self.createShowsToEnter()
-        self.enterLotteriesCustom(self.showsToEnter)
+        self.enterLotteriesCustom(self.showsToEnter, quitAtEnd)
 
-    def enterLotteriesCustom(self, showsToEnter: dict[str:int]):
+    def enterLotteriesCustom(self, showsToEnter: dict[str:int], quitAtEnd = True):
         """Enters lotteries for shows in showsToEnter"""
         if(not self.driverIsAlive()):
             self.setup()
@@ -144,8 +146,14 @@ class Telecharge:
         for show in self.shows:
             if(show.title in showsToEnter.keys()):
                 show.enterLottery(showsToEnter[show.title])
+        if(quitAtEnd):
+            self.driver.quit()
      
-        # self.driver.quit()
+    def quit(self):
+        """Quits driver"""
+        if(self.driverIsAlive()):
+            self.driver.quit()
+            self.driver = None
     
     #Load dict from json file
     @classmethod
