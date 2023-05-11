@@ -5,5 +5,6 @@
  "FACEBOOK_EMAIL": "email@gmail.com",
  "OFFLINE_URL": "file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html",
  "FACEBOOK_PASSWORD": "password",
- "NUM_TICKETS_FOR_NEW_SHOWS": 0
+ "NUM_TICKETS_FOR_NEW_SHOWS": 0,
+ "SHOWS_TO_ENTER_PATH": "showsToEnter_offline.json"
 }

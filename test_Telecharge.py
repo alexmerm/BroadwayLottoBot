@@ -23,9 +23,34 @@ class TelechargeTestCase(unittest.TestCase):
             "FACEBOOK_EMAIL": "email@gmail.com",
             "OFFLINE_URL": "file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html",
             "FACEBOOK_PASSWORD": "password",
-            "NUM_TICKETS_FOR_NEW_SHOWS": 0
+            "NUM_TICKETS_FOR_NEW_SHOWS": 0,
+            "SHOWS_TO_ENTER_PATH": "showsToEnter_offline.json"
+
         }
         self.assertEqual(self.tc.config, config)
+    
+    def test_load_showstoenter(self):
+        showsToEnter = {
+            "ANTHONY RAPP'S WITHOUT YOU": 2,
+            "ANDREW LLOYD WEBBER'S BAD CINDERELLA": 2,
+            "BOB FOSSE'S DANCIN'": 2,
+            "KIMBERLY AKIMBO": 0,
+            "PETER PAN GOES WRONG": 0,
+            "PARADE": 2,
+            "SOME LIKE IT HOT": 0,
+            "LEOPOLDSTADT": 2,
+            "LIFE OF PI": 2,
+            "A BEAUTIFUL NOISE: THE NEIL DIAMOND MUSICAL": 0,
+            "THE PLAY THAT GOES WRONG": 2,
+            "THE VERY HUNGRY CATERPILLAR SHOW": 0,
+            "TITANIQUE": 2,
+            "GOOD NIGHT, OSCAR": 0,
+            "CAMELOT": 2,
+            "LITTLE SHOP OF HORRORS": 2,
+            "PRIMA FACIE": 2,
+            "THE SIGN IN SIDNEY BRUSTEIN'S WINDOW": 2
+            }
+        self.assertEqual(self.tc.showsToEnter, showsToEnter)
 
     
     def test_numShows(self):
@@ -88,7 +113,7 @@ class TelechargeTestCase(unittest.TestCase):
         KIMBERLY.enterLottery.return_value = True
         self.tc.setup()
         self.tc.shows = [BADCIN, KIMBERLY]
-        self.tc.enterLotteries(toGet)
+        self.tc.enterLotteriesCustom(toGet)
         BADCIN.enterLottery.assert_called_with(2)
         KIMBERLY.enterLottery.assert_called_with(2)
     
@@ -135,7 +160,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteries(toGet)
+        self.tc.enterLotteriesCustom(toGet)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
         
@@ -164,7 +189,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteries(toGet)
+        self.tc.enterLotteriesCustom(toGet)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
 
@@ -194,7 +219,7 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteries(toGet)
+        self.tc.enterLotteriesCustom(toGet)
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
     
@@ -223,7 +248,35 @@ class TelechargeTestCase(unittest.TestCase):
         self.tc.setup()
         #Before doing entry, request log so next log request will only have this request
         log_entries = self.tc.driver.get_log("performance")
-        self.tc.enterLotteries(toGet)
+        self.tc.enterLotteriesCustom(toGet)
+        log_entries = self.tc.driver.get_log("performance")
+        self.verify_lotteries_entered(toGet, log_entries)
+
+    def test_showsToEnterPath_lottery(self):
+        toGet = {
+            "ANTHONY RAPP'S WITHOUT YOU": 2,
+            "ANDREW LLOYD WEBBER'S BAD CINDERELLA": 2,
+            "BOB FOSSE'S DANCIN'": 2,
+            "KIMBERLY AKIMBO": 0,
+            "PETER PAN GOES WRONG": 0,
+            "PARADE": 2,
+            "SOME LIKE IT HOT": 0,
+            "LEOPOLDSTADT": 2,
+            "LIFE OF PI": 2,
+            "A BEAUTIFUL NOISE: THE NEIL DIAMOND MUSICAL": 0,
+            "THE PLAY THAT GOES WRONG": 2,
+            "THE VERY HUNGRY CATERPILLAR SHOW": 0,
+            "TITANIQUE": 2,
+            "GOOD NIGHT, OSCAR": 0,
+            "CAMELOT": 2,
+            "LITTLE SHOP OF HORRORS": 2,
+            "PRIMA FACIE": 2,
+            "THE SIGN IN SIDNEY BRUSTEIN'S WINDOW": 2
+            }
+        self.tc.setup()
+        #Before doing entry, request log so next log request will only have this request
+        log_entries = self.tc.driver.get_log("performance")
+        self.tc.enterLotteries()
         log_entries = self.tc.driver.get_log("performance")
         self.verify_lotteries_entered(toGet, log_entries)
 

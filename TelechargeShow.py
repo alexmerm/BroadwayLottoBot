@@ -20,7 +20,6 @@ class TelechargeShow:
         self.driver = driver
         self.refreshInfo()
     
-    #Note: may be useless bc on live site may element may become useless
     def refreshInfo(self):
         """Loads all info from div into object"""
         self.title = self.div.find_element(By.CLASS_NAME,"lottery_show_title").text
@@ -55,7 +54,6 @@ class TelechargeShow:
     
 
 
-    #TODO: if online, check for positive response, otherwise check for request at all
     #Assuming alive 
     def enterLottery(self, numTickets: int) -> bool:
         ##TODO : Check if already entered, and if alive

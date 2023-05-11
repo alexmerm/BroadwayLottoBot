@@ -16,7 +16,6 @@ class Telecharge:
 #For now : not keepign track of if alive, quit after everything
     START_PAGE =  "https://my.socialtoaster.com/st/lottery_select/?key=BROADWAY&source=iframe"
     CONFIG_PATH = "config.json"
-    SHOWS_TO_ENTER_PATH = "showsToEnter.json"
     
     DEFAULT_CONFIG = {
         'DEBUG' : True,
@@ -25,7 +24,8 @@ class Telecharge:
         'FACEBOOK_EMAIL' : "",
         'FACEBOOK_PASSWORD' : "",
         'OFFLINE_URL' : 'file:///mnt/offlinePages/Become a User The Shubert Organization, Inc - LotteryPage.html',
-        'NUM_TICKETS_FOR_NEW_SHOWS' : 0
+        'NUM_TICKETS_FOR_NEW_SHOWS' : 0,
+        "SHOWS_TO_ENTER_PATH": "showsToEnter.json"
     }
         
     def __init__(self,
@@ -34,6 +34,7 @@ class Telecharge:
         self.driver:webdriver.Remote = None
         self.shows:List[TelechargeShow] =  []
         self.config = Telecharge.createFile(config_path, Telecharge.DEFAULT_CONFIG)
+        self.createShowsToEnter()
 
 
     def driverIsAlive(self):
@@ -109,7 +110,7 @@ class Telecharge:
         if(self.config['DEBUG']):
             print("Found " + str(len(self.shows)) + " shows")
             print("Updating ShowToGet File")
-        self.createShowsToEnter( Telecharge.SHOWS_TO_ENTER_PATH)
+        self.createShowsToEnter()
     
     def getShowTitles(self) -> Set[str]:
         """Returns set of show titles"""
@@ -129,12 +130,13 @@ class Telecharge:
                 return show
         return None
     
-    def enterLotteries(self):
-        """Enters lotteries stored in SHOWS_TO_ENTER_PATH file"""
-        showsToEnter = self.createShowsToEnter(Telecharge.SHOWS_TO_ENTER_PATH)
-        self.enterLotteries(showsToEnter)
 
-    def enterLotteries(self, showsToEnter: dict[str:int]):
+    def enterLotteries(self):
+        """Enters lotteries for all shows saved in SHOWS_TO_ENTER_PATH"""
+        self.createShowsToEnter()
+        self.enterLotteriesCustom(self.showsToEnter)
+
+    def enterLotteriesCustom(self, showsToEnter: dict[str:int]):
         """Enters lotteries for shows in showsToEnter"""
         if(not self.driverIsAlive()):
             self.setup()
@@ -171,11 +173,11 @@ class Telecharge:
         return contents
     
     #Create ShowsToEnter file from shows
-    def createShowsToEnter(self, showsToEnterPath:str = SHOWS_TO_ENTER_PATH):
+    def createShowsToEnter(self):
         defaultShows = {}
         for show in self.shows:
             defaultShows[show.title] = self.config['NUM_TICKETS_FOR_NEW_SHOWS']
-        return Telecharge.createFile(showsToEnterPath, defaultShows)
+        self.showsToEnter = Telecharge.createFile(self.config['SHOWS_TO_ENTER_PATH'], defaultShows)
 
     
 
