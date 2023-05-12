@@ -1,0 +1,2 @@
+10 20 * * * root cd /usr/src/broadwayRunner && /usr/local/bin/python ./runDefault.py >> /cron.log
+# Don't remove the empty line at the end of this file. It is required to run the cron job

@@ -23,6 +23,6 @@ services:
       - ".:/home"
     depends_on:
       - broadwaySelenium
-#    entrypoint: ["pytest"]
+    # entrypoint: ["pytest"]
 
  
