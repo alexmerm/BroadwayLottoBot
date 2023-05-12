@@ -24,5 +24,6 @@ services:
     depends_on:
       - broadwaySelenium
     # entrypoint: ["pytest"]
+    # entrypoint : ['python', 'runDefault.py']
 
  
