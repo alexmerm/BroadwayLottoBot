@@ -1,4 +1,5 @@
-# Telecharge Broadway Lottery Enterer
+# BroadwayLottoBot
+## Telecharge Broadway Lottery Enter
 ![Gif showing the program in action entering the lottery](./enteringLottery.gif)
 This program will allow you to enter any number of Broadway Telecharge Lotteries automatically using selenium automation every day at 10:20am
 
